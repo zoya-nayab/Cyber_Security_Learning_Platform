@@ -44,25 +44,27 @@ CyberShield is designed with a freemium model — free for all individual users 
 
 ## 📁 Project Structure
 cybersec-platform/
-├── index.html              # Landing page
-├── login.html              # Login & signup
-├── lessons.html            # Security lessons
-├── quiz.html               # Interactive quiz
-├── simulation.html         # Phishing simulation
-├── dashboard.html          # User progress dashboard
-├── password-checker.html   # Password strength tool
-├── phish-trap.html         # Phishing trap page
-├── admin.html              # Admin panel
+├── index.html
+├── login.html
+├── lessons.html
+├── quiz.html
+├── simulation.html
+├── dashboard.html
+├── password-checker.html
+├── phish-trap.html
+├── admin.html
 ├── css/
-│   └── style.css           # Global styles
+│   └── style.css
 └── js/
-├── auth.js             # Authentication logic
-├── lessons.js          # Lessons data & rendering
-├── quiz.js             # Quiz engine & questions
-├── dashboard.js        # Dashboard logic
-├── simulation.js       # Simulation logic
-├── password-checker.js # Password checker logic
-└── admin.js            # Admin panel logic
+├── auth.js
+├── lessons.js
+├── quiz.js
+├── dashboard.js
+├── simulation.js
+├── password-checker.js
+└── admin.js
+
+
 
 ## 📌 Note
 
