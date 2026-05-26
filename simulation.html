@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield - Simulation</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .sim-wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px 60px; }
+    .score-bar { display: flex; justify-content: space-between; align-items: center; background: #0d1428; border: 1px solid #1e2d50; border-radius: 10px; padding: 14px 20px; margin-bottom: 28px; }
+    .score-item { text-align: center; }
+    .score-label { font-size: 12px; color: #7a94b0; margin-bottom: 4px; }
+    .score-val { font-size: 20px; font-weight: 700; color: #4fc3f7; }
+    .score-val.green { color: #66bb6a; }
+    .score-val.red { color: #ef5350; }
+    .email-card { background: #0d1428; border: 1px solid #1e2d50; border-radius: 14px; margin-bottom: 24px; overflow: hidden; transition: opacity 0.3s; }
+    .email-header { padding: 20px 24px; border-bottom: 1px solid #1e2d50; }
+    .email-from { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .avatar.blue { background: #0d1f3c; color: #4fc3f7; }
+    .avatar.red { background: #2d0d0d; color: #ef5350; }
+    .from-info { flex: 1; }
+    .from-name { font-size: 14px; font-weight: 600; color: #fff; }
+    .from-email { font-size: 12px; color: #7a94b0; margin-top: 2px; }
+    .email-time { font-size: 12px; color: #4a6280; }
+    .email-subject { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .email-body { padding: 20px 24px; font-size: 14px; color: #a0b4cc; line-height: 1.8; }
+    .email-body a { color: #4fc3f7; text-decoration: underline; pointer-events: none; }
+    .highlight { background: #2d1f00; border: 1px solid #5e3d00; border-radius: 4px; padding: 2px 6px; font-size: 13px; color: #ffa726; }
+    .email-actions { padding: 16px 24px; border-top: 1px solid #1e2d50; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .action-label { font-size: 13px; color: #7a94b0; margin-right: 4px; }
+    .btn-safe { background: #0d2d1a; border: 1px solid #1b5e20; color: #66bb6a; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-phish { background: #2d0d0d; border: 1px solid #5e1b1b; color: #ef5350; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-safe:hover { background: #1b5e20; color: #fff; }
+    .btn-phish:hover { background: #7f1d1d; color: #fff; }
+    .result-overlay { padding: 14px 18px; margin: 0 24px 16px; border-radius: 10px; font-size: 14px; line-height: 1.6; display: none; }
+    .result-overlay.show { display: block; }
+    .result-overlay.correct { background: #0d2d1a; border: 1px solid #1b5e20; color: #66bb6a; }
+    .result-overlay.wrong { background: #2d0d0d; border: 1px solid #5e1b1b; color: #ef5350; }
+    .clue-list { margin-top: 8px; padding-left: 4px; list-style: none; }
+    .clue-list li { margin-top: 6px; padding-left: 14px; position: relative; }
+    .clue-list li::before { content: '›'; position: absolute; left: 0; }
+    .answered { opacity: 0.65; }
+    .final-card { background: #0d1428; border: 1px solid #1e2d50; border-radius: 14px; padding: 40px; text-align: center; margin-top: 24px; }
+    .final-icon { font-size: 52px; margin-bottom: 14px; }
+    .final-score { font-size: 42px; font-weight: 700; color: #4fc3f7; margin-bottom: 6px; }
+    .final-msg { font-size: 15px; color: #7a94b0; margin-bottom: 28px; }
+    .btn-restart { background: #1565c0; color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; margin-right: 12px; }
+    .btn-restart:hover { background: #1976d2; }
+  </style>
+</head>
+<body onload="initSim()">
+
+  <nav class="navbar">
+    <div class="nav-logo">🛡️ CyberShield</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lessons.html">Lessons</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="simulation.html">Simulation</a></li>
+      <li><a href="password-checker.html">🔒 PW Checker</a></li>
+      <li><a href="dashboard.html" class="btn-nav">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="sim-wrap">
+    <div class="page-header">
+      <h1>🎯 Phishing Simulation</h1>
+      <p>Read each email carefully. Decide: is it Safe or Phishing?</p>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-item"><div class="score-label">Score</div><div class="score-val" id="scoreVal">0</div></div>
+      <div class="score-item"><div class="score-label">Correct</div><div class="score-val green" id="correctVal">0</div></div>
+      <div class="score-item"><div class="score-label">Wrong</div><div class="score-val red" id="wrongVal">0</div></div>
+      <div class="score-item"><div class="score-label">Remaining</div><div class="score-val" id="remainVal">6</div></div>
+    </div>
+
+    <div id="emailsArea"></div>
+  </div>
+
+  <footer class="footer">🛡️ CyberShield — Built for Cybersecurity Awareness | IoBM 2025</footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/simulation.js"></script>
+</body>
+</html>

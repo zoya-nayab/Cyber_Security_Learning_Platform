@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield - You've Been Phished!</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .trap-wrap { max-width: 680px; margin: 0 auto; padding: 60px 24px; }
+    .trap-banner { background: #2d0d0d; border: 1px solid #7f1d1d; border-radius: 14px; padding: 32px; text-align: center; margin-bottom: 32px; }
+    .trap-icon { font-size: 56px; margin-bottom: 16px; }
+    .trap-banner h1 { font-size: 28px; font-weight: 700; color: #ef5350; margin-bottom: 10px; }
+    .trap-banner p { font-size: 15px; color: #f87171; line-height: 1.7; }
+    .score-pill { display: inline-block; background: #2d1f00; border: 1px solid #5e3d00; color: #ffa726; padding: 6px 16px; border-radius: 99px; font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+    .info-card { background: #0d1428; border: 1px solid #1e2d50; border-radius: 14px; padding: 28px; margin-bottom: 20px; }
+    .info-card h2 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+    .clue-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .clue-num { background: #1565c0; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .clue-text { font-size: 14px; color: #a0b4cc; line-height: 1.6; }
+    .clue-text strong { color: #fff; }
+    .clue-code-bad { background: #0a0f1e; padding: 2px 6px; border-radius: 4px; color: #ffa726; font-family: monospace; font-size: 13px; }
+    .clue-code-good { background: #0a0f1e; padding: 2px 6px; border-radius: 4px; color: #66bb6a; font-family: monospace; font-size: 13px; }
+    .tip-box { background: #0d1f3c; border: 1px solid #1e3a5f; border-radius: 10px; padding: 18px 20px; margin-bottom: 28px; }
+    .tip-box h3 { font-size: 14px; font-weight: 600; color: #4fc3f7; margin-bottom: 10px; }
+    .tip-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .tip-list li { font-size: 14px; color: #a0b4cc; padding-left: 16px; position: relative; }
+    .tip-list li::before { content: '›'; position: absolute; left: 0; color: #4fc3f7; font-weight: 700; }
+    .trap-actions { display: flex; gap: 12px; justify-content: center; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">🛡️ CyberShield</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lessons.html">Lessons</a></li>
+      <li><a href="simulation.html">Simulation</a></li>
+      <li><a href="password-checker.html">🔒 PW Checker</a></li>
+      <li><a href="dashboard.html" class="btn-nav">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="trap-wrap">
+
+    <div class="trap-banner">
+      <div class="trap-icon">🎣</div>
+      <div class="score-pill">⚠️ You clicked a phishing link!</div>
+      <h1>You've Been Phished!</h1>
+      <p>Don't worry — this is a safe simulation. But in real life, clicking this link could have compromised your account, installed malware, or stolen your credentials.</p>
+    </div>
+
+    <div class="info-card">
+      <h2>🔍 What gave it away?</h2>
+      <div class="clue-item">
+        <div class="clue-num">1</div>
+        <div class="clue-text"><strong>Fake sender domain</strong> — The email came from <span class="clue-code-bad">security@paypa1-alerts.com</span> not <span class="clue-code-good">paypal.com</span>. Notice the "1" instead of "l".</div>
+      </div>
+      <div class="clue-item">
+        <div class="clue-num">2</div>
+        <div class="clue-text"><strong>Urgency tactic</strong> — "Verify within 24 hours or your account will be permanently suspended" is designed to make you panic and act without thinking.</div>
+      </div>
+      <div class="clue-item">
+        <div class="clue-num">3</div>
+        <div class="clue-text"><strong>Generic greeting</strong> — Real companies personalize emails with your name. "Dear Customer" is a red flag.</div>
+      </div>
+      <div class="clue-item">
+        <div class="clue-num">4</div>
+        <div class="clue-text"><strong>Suspicious link</strong> — Hovering over the link would have shown it doesn't go to paypal.com. Always check before clicking!</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <h3>✅ What to do when you spot a phishing email</h3>
+      <ul class="tip-list">
+        <li>Do NOT click any links or download attachments</li>
+        <li>Report it to your email provider as spam/phishing</li>
+        <li>If you accidentally clicked, change your passwords immediately</li>
+        <li>Enable 2FA on all important accounts</li>
+        <li>Notify your IT/security team if it happened at work</li>
+      </ul>
+    </div>
+
+    <div class="trap-actions">
+      <a href="simulation.html" class="btn-primary">↩ Back to Simulation</a>
+      <a href="lessons.html" class="btn-secondary">📖 Review Lessons</a>
+    </div>
+
+  </div>
+
+  <footer class="footer">🛡️ CyberShield — Built for Cybersecurity Awareness | IoBM 2025</footer>
+
+</body>
+</html>

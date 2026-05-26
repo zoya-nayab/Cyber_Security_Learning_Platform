@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield - Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px 60px; }
+    .admin-header { margin-bottom: 32px; }
+    .admin-header p { font-size: 14px; color: #7a94b0; margin-top: 6px; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .admin-badge { background: #1a2a1a; border: 1px solid #1b5e20; color: #66bb6a; padding: 5px 12px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+    .logout-btn { background: transparent; border: 1px solid #1e2d50; color: #7a94b0; padding: 7px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .logout-btn:hover { border-color: #4fc3f7; color: #4fc3f7; }
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 36px; }
+    .stat-card { background: #0d1428; border: 1px solid #1e2d50; border-radius: 12px; padding: 20px; text-align: center; }
+    .stat-icon { font-size: 24px; margin-bottom: 8px; }
+    .stat-label { font-size: 12px; color: #7a94b0; margin-bottom: 6px; }
+    .stat-val { font-size: 28px; font-weight: 700; color: #4fc3f7; }
+    .section-title { font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .search-box { background: #0a0f1e; border: 1px solid #1e2d50; border-radius: 8px; padding: 8px 14px; color: #e0e6f0; font-size: 13px; outline: none; width: 220px; }
+    .search-box:focus { border-color: #4fc3f7; }
+    .table-wrap { background: #0d1428; border: 1px solid #1e2d50; border-radius: 14px; overflow: hidden; margin-bottom: 32px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; }
+    th { background: #0a0f1e; padding: 12px 18px; font-size: 12px; color: #7a94b0; text-align: left; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #1e2d50; }
+    td { padding: 14px 18px; font-size: 14px; color: #a0b4cc; border-bottom: 1px solid #0f1e38; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #0a1528; }
+    .td-name { color: #fff; font-weight: 600; }
+    .badge-count { display: inline-flex; align-items: center; gap: 4px; background: #0d1f3c; border: 1px solid #1e3a5f; color: #4fc3f7; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+    .progress-mini { background: #0a0f1e; border-radius: 99px; height: 6px; width: 80px; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 6px; }
+    .progress-mini-fill { height: 6px; border-radius: 99px; background: #1565c0; }
+    .status-pill { padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+    .status-active { background: #0d2d1a; border: 1px solid #1b5e20; color: #66bb6a; }
+    .status-new { background: #0d1f3c; border: 1px solid #1e3a5f; color: #4fc3f7; }
+    .action-btn { background: transparent; border: 1px solid #1e2d50; color: #7a94b0; padding: 5px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .action-btn:hover { border-color: #ef5350; color: #ef5350; }
+    .activity-list { background: #0d1428; border: 1px solid #1e2d50; border-radius: 14px; overflow: hidden; }
+    .activity-item { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid #0f1e38; }
+    .activity-item:last-child { border-bottom: none; }
+    .a-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .a-dot.green { background: #66bb6a; }
+    .a-dot.blue { background: #4fc3f7; }
+    .a-dot.amber { background: #ffa726; }
+    .a-text { flex: 1; font-size: 13px; color: #a0b4cc; }
+    .a-text strong { color: #fff; }
+    .a-time { font-size: 12px; color: #4a6280; white-space: nowrap; }
+    .no-users { text-align: center; padding: 40px; color: #4a6280; font-size: 14px; }
+  </style>
+</head>
+<body onload="loadAdmin()">
+
+  <nav class="navbar">
+    <div class="nav-logo">🛡️ CyberShield</div>
+    <div class="nav-right">
+      <span class="admin-badge">⚙️ Admin</span>
+      <li><a href="password-checker.html">🔒 PW Checker</a></li>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1>⚙️ Admin Dashboard</h1>
+      <p>Monitor all users, track progress, and manage the platform.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-label">Total Users</div><div class="stat-val" id="totalUsers">0</div></div>
+      <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-label">Lessons Completed</div><div class="stat-val" id="totalLessons">0</div></div>
+      <div class="stat-card"><div class="stat-icon">🏅</div><div class="stat-label">Badges Earned</div><div class="stat-val" id="totalBadges">0</div></div>
+      <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-label">Total Score</div><div class="stat-val" id="totalScore">0</div></div>
+    </div>
+
+    <div class="section-title">
+      <span>👥 Registered Users</span>
+      <input class="search-box" id="searchBox" placeholder="🔍 Search users..." oninput="filterUsers()">
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Score</th>
+            <th>Badges</th>
+            <th>Lessons</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="usersTable"></tbody>
+      </table>
+    </div>
+
+    <div class="section-title">📋 Recent Activity</div>
+    <div class="activity-list" id="activityList"></div>
+  </div>
+
+  <footer class="footer">🛡️ CyberShield — Built for Cybersecurity Awareness | IoBM 2025</footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

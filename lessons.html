@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield - Lessons</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .lessons-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; }
+    .lesson-card { background: #0d1428; border: 1px solid #1e2d50; border-radius: 14px; margin-bottom: 20px; overflow: hidden; transition: border-color 0.2s; }
+    .lesson-card:hover { border-color: #4fc3f7; }
+    .lesson-header { display: flex; align-items: center; gap: 18px; padding: 22px 24px; cursor: pointer; }
+    .lesson-num { background: #0a0f1e; border: 1px solid #1e2d50; border-radius: 8px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #4fc3f7; flex-shrink: 0; }
+    .lesson-meta { flex: 1; }
+    .lesson-meta h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .lesson-meta p { font-size: 13px; color: #7a94b0; }
+    .lesson-right { display: flex; align-items: center; gap: 14px; }
+    .badge-pill { font-size: 11px; padding: 4px 12px; border-radius: 99px; font-weight: 600; }
+    .badge-done { background: #0d2d1a; color: #66bb6a; border: 1px solid #1b5e20; }
+    .badge-progress { background: #2d1f00; color: #ffa726; border: 1px solid #5e3d00; }
+    .badge-new { background: #0d1f3c; color: #4fc3f7; border: 1px solid #1e3a5f; }
+    .chevron { color: #4a6280; font-size: 18px; transition: transform 0.3s; }
+    .chevron.open { transform: rotate(180deg); }
+    .lesson-body { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.5s ease, padding 0.3s; }
+    .lesson-body.open { max-height: 9999px; padding: 0 24px 24px; }
+    .divider { border: none; border-top: 1px solid #1e2d50; margin-bottom: 18px; }
+    .lesson-section { margin-bottom: 18px; }
+    .lesson-section h4 { font-size: 13px; font-weight: 600; color: #4fc3f7; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .lesson-section p { font-size: 14px; color: #a0b4cc; line-height: 1.7; }
+    /* Real-world example styling */
+    .example-box { background: #0a0f1e; border: 1px solid #1e3a5f; border-left: 3px solid #4fc3f7; border-radius: 10px; padding: 16px 18px; }
+    .example-box h4 { color: #ffa726 !important; }
+    .example-box p { color: #c8d8e8 !important; }
+    .tip-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .tip-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #a0b4cc; line-height: 1.6; }
+    .tip-list li::before { content: '›'; color: #4fc3f7; font-size: 16px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .lesson-actions { display: flex; gap: 12px; margin-top: 20px; }
+    .btn-lesson { padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; text-decoration: none; display: inline-block; }
+    .btn-complete { background: #1565c0; color: #fff; transition: background 0.2s; }
+    .btn-complete:hover { background: #1976d2; }
+    .btn-quiz { background: transparent; border: 1px solid #1e3a5f; color: #4fc3f7; transition: border-color 0.2s; }
+    .btn-quiz:hover { border-color: #4fc3f7; }
+  </style>
+</head>
+<body onload="initLessons()">
+
+  <nav class="navbar">
+    <div class="nav-logo">🛡️ CyberShield</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lessons.html">Lessons</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="simulation.html">Simulation</a></li>
+      <li><a href="password-checker.html">🔒 PW Checker</a></li>
+      <li><a href="dashboard.html" class="btn-nav">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <h1>📚 Security Lessons</h1>
+    <p>Master each module at your own pace. Complete lessons to unlock badges.</p>
+  </div>
+
+  <div class="lessons-wrap" id="lessonsWrap"></div>
+
+  <footer class="footer">🛡️ CyberShield — Built for Cybersecurity Awareness | IoBM 2025</footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/lessons.js"></script>
+</body>
+</html>

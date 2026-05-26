@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield - Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-logo">🛡️ CyberShield</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lessons.html">Lessons</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="simulation.html">Simulation</a></li>
+      <li><a href="password-checker.html">🔒 PW Checker</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-container">
+
+    <!-- LOGIN FORM -->
+    <div class="form-box" id="loginBox">
+      <h2>Welcome Back</h2>
+      <p>Login to continue your training</p>
+
+      <div id="loginAlert"></div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="loginUser" placeholder="Enter your username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Enter your password">
+      </div>
+      <button class="form-btn" onclick="handleLogin()">Login</button>
+      <div class="form-switch">
+        Don't have an account? <a href="#" onclick="toggleForm()">Register</a>
+      </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div class="form-box" id="registerBox" style="display:none;">
+      <h2>Create Account</h2>
+      <p>Join CyberShield and start training</p>
+
+      <div id="registerAlert"></div>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="regName" placeholder="Your full name">
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="regUser" placeholder="Choose a username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="regPass" placeholder="Choose a password">
+      </div>
+      <button class="form-btn" onclick="handleRegister()">Register</button>
+      <div class="form-switch">
+        Already have an account? <a href="#" onclick="toggleForm()">Login</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield - Quiz</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .quiz-wrap { max-width: 700px; margin: 0 auto; padding: 48px 24px 60px; }
+    .module-select { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .mod-btn { background: #0d1428; border: 1px solid #1e2d50; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: border-color 0.2s, transform 0.1s; }
+    .mod-btn:hover, .mod-btn.active { border-color: #4fc3f7; transform: translateY(-2px); }
+    .mod-btn.active { background: #0d1f3c; }
+    .mod-icon { font-size: 26px; margin-bottom: 8px; }
+    .mod-name { font-size: 13px; font-weight: 600; color: #fff; }
+    .quiz-info { text-align: center; font-size: 13px; color: #7a94b0; margin-bottom: 24px; background: #0d1f3c; border: 1px solid #1e3a5f; border-radius: 10px; padding: 12px 18px; }
+    .quiz-card { background: #0d1428; border: 1px solid #1e2d50; border-radius: 14px; padding: 32px; }
+    .progress-bar-bg { background: #0a0f1e; border-radius: 99px; height: 6px; margin-bottom: 28px; overflow: hidden; }
+    .progress-bar-fill { height: 6px; border-radius: 99px; background: #1565c0; transition: width 0.4s; }
+    .q-counter { font-size: 13px; color: #7a94b0; margin-bottom: 10px; }
+    .q-text { font-size: 17px; font-weight: 600; color: #fff; line-height: 1.5; margin-bottom: 24px; }
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option { background: #0a0f1e; border: 1px solid #1e2d50; border-radius: 10px; padding: 14px 18px; cursor: pointer; font-size: 14px; color: #a0b4cc; text-align: left; transition: border-color 0.2s, background 0.2s; }
+    .option:hover { border-color: #4fc3f7; color: #fff; }
+    .option.correct { border-color: #1b5e20; background: #0d2d1a; color: #66bb6a; }
+    .option.wrong { border-color: #5e1b1b; background: #2d0d0d; color: #ef5350; }
+    .option.disabled { pointer-events: none; }
+    .feedback { margin-top: 18px; padding: 14px 18px; border-radius: 10px; font-size: 14px; line-height: 1.6; }
+    .feedback.correct { background: #0d2d1a; border: 1px solid #1b5e20; color: #66bb6a; }
+    .feedback.wrong { background: #2d0d0d; border: 1px solid #5e1b1b; color: #ef5350; }
+    .btn-next { margin-top: 16px; background: #1565c0; color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; display: block; }
+    .btn-next:hover { background: #1976d2; }
+    .result-card { background: #0d1428; border: 1px solid #1e2d50; border-radius: 14px; padding: 40px; text-align: center; }
+    .result-icon { font-size: 52px; margin-bottom: 16px; }
+    .result-score { font-size: 42px; font-weight: 700; color: #4fc3f7; margin-bottom: 8px; }
+    .result-label { font-size: 15px; color: #7a94b0; margin-bottom: 28px; }
+    .result-actions { display: flex; gap: 12px; justify-content: center; }
+    .btn-retry { background: #1565c0; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-dash { background: transparent; border: 1px solid #1e3a5f; color: #4fc3f7; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  </style>
+</head>
+<body onload="initQuiz()">
+
+  <nav class="navbar">
+    <div class="nav-logo">🛡️ CyberShield</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lessons.html">Lessons</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="simulation.html">Simulation</a></li>
+      <li><a href="password-checker.html">🔒 PW Checker</a></li>
+      <li><a href="dashboard.html" class="btn-nav">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="quiz-wrap">
+    <div class="page-header">
+      <h1>📝 Security Quiz</h1>
+      <p>Test your knowledge and earn points for each correct answer.</p>
+    </div>
+
+    <div class="module-select">
+      <div class="mod-btn active" onclick="selectMod(this,'phishing')">
+        <div class="mod-icon">🎣</div>
+        <div class="mod-name">Phishing</div>
+      </div>
+      <div class="mod-btn" onclick="selectMod(this,'password')">
+        <div class="mod-icon">🔐</div>
+        <div class="mod-name">Passwords</div>
+      </div>
+      <div class="mod-btn" onclick="selectMod(this,'social')">
+        <div class="mod-icon">🧠</div>
+        <div class="mod-name">Social Eng.</div>
+      </div>
+      <div class="mod-btn" onclick="selectMod(this,'malware')">
+        <div class="mod-icon">🦠</div>
+        <div class="mod-name">Malware</div>
+      </div>
+      <div class="mod-btn" onclick="selectMod(this,'privacy')">
+        <div class="mod-icon">👁️</div>
+        <div class="mod-name">Privacy</div>
+      </div>
+      <div class="mod-btn" onclick="selectMod(this,'safe_browsing')">
+        <div class="mod-icon">🌐</div>
+        <div class="mod-name">Safe Browsing</div>
+      </div>
+    </div>
+
+    <div class="quiz-info">
+      🔀 <strong>10 random questions</strong> drawn from a pool of 20 per module — you'll get a different set every time!
+    </div>
+
+    <div id="quizArea"></div>
+  </div>
+
+  <footer class="footer">🛡️ CyberShield — Built for Cybersecurity Awareness | IoBM 2025</footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
